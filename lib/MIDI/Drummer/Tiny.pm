@@ -8,7 +8,7 @@ BEGIN {
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.0201';
 
 use Moo;
 use MIDI::Simple;
@@ -111,12 +111,12 @@ sub metronome {
     my $self = shift;
     my $bars = shift || $self->bars;
     for my $n ( 1 .. $self->beats * $bars ) {
-        if ( $self->beats % 2 == 0 )
+        if ( $self->beats % 3 == 0 )
         {
-            $self->note( $self->quarter, $self->open_hh, $n % 2 ? $self->kick : $self->snare );
+            $self->note( $self->quarter, $self->open_hh, $n % 3 ? $self->kick : $self->snare );
         }
         else {
-            $self->note( $self->quarter, $self->open_hh, $n % 3 ? $self->kick : $self->snare );
+            $self->note( $self->quarter, $self->open_hh, $n % 2 ? $self->kick : $self->snare );
         }
     }
 }
@@ -141,7 +141,7 @@ MIDI::Drummer::Tiny - Glorified metronome
 
 =head1 VERSION
 
-version 0.02
+version 0.0201
 
 =head1 SYNOPSIS
 
@@ -153,7 +153,9 @@ version 0.02
     bars => 32,
  );
  $d->count_in();
- $d->metronome();
+ $d->note( $d->quarter, $d->open_hh, $_ % 2 ? $d->kick : $d->snare )
+    for 1 .. $d->beats * $d->bars;  # Alternate even beats
+ $d->metronome();  # <- Similar but honoring time signature
  $d->write();
 
 =head1 DESCRIPTION
@@ -162,6 +164,10 @@ This module provides a MIDI drummer with the bare essentials to add notes to a
 MIDI score.
 
 =head1 ATTRIBUTES
+
+=head2 file: MIDI-Drummer.mid
+
+=head2 score MIDI::Simple->new_score
 
 =head2 channel: 9
 
@@ -183,9 +189,7 @@ MIDI score.
 
 =head2 signature: 4/4
 
-=head2 file: MIDI-Drummer.mid
-
-=head2 score
+"beats/divisions"
 
 =head1 KIT
 
@@ -266,7 +270,7 @@ Add a steady beat to the score.
 
 =head2 write()
 
-Output the score to a F<*.mid> file.
+Output the score to the F<*.mid> file given in the constuctor.
 
 =head1 AUTHOR
 
