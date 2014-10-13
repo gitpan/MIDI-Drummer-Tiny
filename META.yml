@@ -25,10 +25,10 @@ requires:
   warnings: '0'
 resources:
   repository: https://github.com/ology/MIDI-Drummer
-version: '0.01'
+version: '0.02'
 x_Dist_Zilla:
   perl:
-    version: '5.018001'
+    version: '5.021002'
   plugins:
     -
       class: Dist::Zilla::Plugin::GatherDir

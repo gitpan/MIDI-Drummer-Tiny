@@ -1,5 +1,9 @@
 Revision history for MIDI-Drummer
 
+0.02  2014-10-12
+    - Improved documentation
+    - Fixed time signature handling.
+
 0.01  2014-10-08
     - Ported essential functionality from M::S::D
     - Minted by Dist::Zilla
