@@ -8,7 +8,7 @@ BEGIN {
 use strict;
 use warnings;
 
-our $VERSION = '0.0201';
+our $VERSION = '0.03';
 
 use Moo;
 use MIDI::Simple;
@@ -36,6 +36,9 @@ sub BUILDARGS
     $args{score}->noop( 'c' . $args{channel}, 'V' . $args{volume} );
     $args{score}->set_tempo( int( 60_000_000 / $args{bpm} ) );
 
+    $args{patch} ||= 0;
+    $args{score}->patch_change( $args{channel}, $args{patch} );
+
     $args{reverb} ||= 0;
     $args{score}->control_change( $args{channel}, 91, $args{reverb} );
     $args{chorus} ||= 0;
@@ -48,6 +51,7 @@ sub BUILDARGS
 
 
 has channel => ( is => 'ro' );
+has patch => ( is => 'ro' );
 has volume => ( is => 'ro' );
 has bpm => ( is => 'ro' );
 has reverb => ( is => 'ro' );
@@ -141,7 +145,7 @@ MIDI::Drummer::Tiny - Glorified metronome
 
 =head1 VERSION
 
-version 0.0201
+version 0.03
 
 =head1 SYNOPSIS
 
@@ -149,8 +153,9 @@ version 0.0201
  my $d = MIDI::Drummer::Tiny->new(
     file => 'drums.mid',
     bpm => 120,
-    signature => '4/4',
+    signature => '3/4',
     bars => 32,
+    patch => 26, # TR808
  );
  $d->count_in();
  $d->note( $d->quarter, $d->open_hh, $_ % 2 ? $d->kick : $d->snare )
@@ -172,6 +177,8 @@ MIDI score.
 =head2 channel: 9
 
 =head2 volume: 100
+
+=head2 patch: 0
 
 =head2 bpm: 120
 

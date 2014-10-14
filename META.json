@@ -52,7 +52,7 @@
          "web" : "https://github.com/ology/MIDI-Drummer"
       }
    },
-   "version" : "0.0201",
+   "version" : "0.03",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.021002"
