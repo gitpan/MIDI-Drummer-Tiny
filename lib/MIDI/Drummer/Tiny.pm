@@ -8,7 +8,7 @@ BEGIN {
 use strict;
 use warnings;
 
-our $VERSION = '0.04';
+our $VERSION = '0.0401';
 
 use Moo;
 use MIDI::Simple;
@@ -167,7 +167,7 @@ MIDI::Drummer::Tiny - Glorified metronome
 
 =head1 VERSION
 
-version 0.04
+version 0.0401
 
 =head1 SYNOPSIS
 
@@ -267,11 +267,11 @@ MIDI score.
 
 =head2 half
 
-=head2 quarter
+=head2 quarter, triplet_quarter
 
-=head2 eighth
+=head2 eighth, triplet_eighth
 
-=head2 sixteenth
+=head2 sixteenth, triplet_sixteenth
 
 =head1 METHODS
 
