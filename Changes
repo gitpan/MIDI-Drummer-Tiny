@@ -1,5 +1,8 @@
 Revision history for MIDI-Drummer
 
+0.05  2014-10-14
+    - Rollback naive "swing"
+
 0.0401 2014-10-14
     - Added missing POD for triplet durations
 

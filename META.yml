@@ -25,7 +25,7 @@ requires:
   warnings: '0'
 resources:
   repository: https://github.com/ology/MIDI-Drummer
-version: '0.0401'
+version: '0.05'
 x_Dist_Zilla:
   perl:
     version: '5.021002'

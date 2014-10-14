@@ -8,7 +8,7 @@ BEGIN {
 use strict;
 use warnings;
 
-our $VERSION = '0.0401';
+our $VERSION = '0.05';
 
 use Moo;
 use MIDI::Simple;
@@ -64,7 +64,6 @@ has score => ( is => 'ro' );
 
 has file => ( is => 'ro', default => sub { 'MIDI-Drummer.mid' } );
 has bars => ( is => 'ro', default => sub { 4 } );
-has swing => ( is => 'ro', default => sub { 0 } );
 
 
 # kit
@@ -109,13 +108,7 @@ sub count_in {
     my $self = shift;
     my $bars = shift || 1;
     for my $i ( 1 .. $self->beats * $bars) {
-        if ( $self->swing )
-        {
-            $self->note( $self->triplet_quarter, $self->closed_hh );
-        }
-        else {
-            $self->note( $self->quarter, $self->closed_hh );
-        }
+        $self->note( $self->quarter, $self->closed_hh );
     }
 }
 
@@ -127,22 +120,10 @@ sub metronome {
     for my $n ( 1 .. $self->beats * $bars ) {
         if ( $self->beats % 3 == 0 )
         {
-            if ( $self->swing )
-            {
-                $self->note( $self->triplet_quarter, $self->open_hh, $n % 3 ? $self->kick : $self->snare );
-            }
-            else {
-                $self->note( $self->quarter, $self->open_hh, $n % 3 ? $self->kick : $self->snare );
-            }
+            $self->note( $self->quarter, $self->open_hh, $n % 3 ? $self->kick : $self->snare );
         }
         else {
-            if ( $self->swing )
-            {
-                $self->note( $self->triplet_quarter, $self->open_hh, $n % 2 ? $self->kick : $self->snare );
-            }
-            else {
-                $self->note( $self->quarter, $self->open_hh, $n % 2 ? $self->kick : $self->snare );
-            }
+            $self->note( $self->quarter, $self->open_hh, $n % 2 ? $self->kick : $self->snare );
         }
     }
 }
@@ -167,7 +148,7 @@ MIDI::Drummer::Tiny - Glorified metronome
 
 =head1 VERSION
 
-version 0.0401
+version 0.05
 
 =head1 SYNOPSIS
 
@@ -178,7 +159,6 @@ version 0.0401
     signature => '3/4',
     bars => 32,
     patch => 26, # TR808
-    swing => 1,
  );
  $d->count_in();
  $d->note( $d->quarter, $d->open_hh, $_ % 2 ? $d->kick : $d->snare )
@@ -202,8 +182,6 @@ MIDI score.
 =head2 volume: 100
 
 =head2 patch: 0
-
-=head2 swing: 0
 
 =head2 bpm: 120
 

@@ -4,6 +4,7 @@ LICENSE
 MANIFEST
 META.json
 META.yml
+MIDI-Drummer.mid
 Makefile.PL
 README
 README.md
