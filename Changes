@@ -1,5 +1,8 @@
 Revision history for MIDI-Drummer
 
+0.04  2014-10-14
+    - Added rudimentary swing time (a la triplets)
+
 0.03  2014-10-14
     - Added patch change command
     - Improved documentation
